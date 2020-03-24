@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ManualDataBinding.Data;
 
 namespace ManualDataBinding
 {
@@ -20,9 +21,47 @@ namespace ManualDataBinding
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Create the note to add to our editor
+        /// </summary>
+        Note note = new Note();
+
         public MainWindow()
         {
             InitializeComponent();
+            Editor.Note = note;
+        }
+
+        /// <summary>
+        /// Event handler to create a new note and apply it ot the ediotr
+        /// </summary>
+        /// <param name="sender">button</param>
+        /// <param name="e">event args</param>
+        public void OnNewNote(object sender, RoutedEventArgs e)
+        {
+            note = new Note();
+            Editor.Note = note;
+        }
+
+        /// <summary>
+        /// Event handler to clear note.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnClearNote(object sender, RoutedEventArgs e)
+        {
+            note.Body = "";
+        }
+
+        /// <summary>
+        /// Event handler to mutate the current note
+        /// </summary>
+        /// <param name="sender">button</param>
+        /// <param name="e">event args</param>
+        public void OnMutateNote(object sender ,RoutedEventArgs e)
+        {
+            note.Title = "Master Splinter";
+            note.Body = "There is no master more dangerous than a lack of compasion";
         }
     }
 }

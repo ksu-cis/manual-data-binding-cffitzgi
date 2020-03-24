@@ -23,5 +23,41 @@ namespace ManualDataBinding.UI
         {
             InitializeComponent();
         }
+
+        private Note note;
+        /// <summary>
+        /// The note in question
+        /// </summary>
+        public Note Note
+        {
+            get { return note; }
+            set
+            {
+                if (note != null) note.NoteChangedEvent -= OnNoteChange;
+                note = value;
+                if (note != null)
+                {
+                    note.NoteChangedEvent += OnNoteChange;
+                    OnNoteChange(note, new EventArgs());
+                }
+            }
+        }
+
+        public void OnNoteChange(object sender, EventArgs e)
+        {
+            if (Note == null) return;
+            Title.Text = Note.Title;
+            Body.Text = Note.Body;
+        }
+
+        public void OnTitleChanged(object sender, TextChangedEventArgs e)
+        {
+            Note.Title = Title.Text;
+        }
+
+        public void OnBodyChanged(object sender, TextChangedEventArgs e)
+        {
+            Note.Body = Body.Text;
+        }
     }
 }
